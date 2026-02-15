@@ -128,11 +128,10 @@ body {
 }
 
 .logo .full-name {
-    display: inline-block;
+    display: inline;
     max-width: 0;
     opacity: 0;
     overflow: hidden;
-    vertical-align: baseline;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
