@@ -719,12 +719,14 @@ function exportHTML() {
                     </div>
                 </div>
                 <div class="contact-form">
-                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--gray-700); margin-bottom: 2rem;">
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--gray-700); margin-bottom: 2.5rem; text-align: center;">
                         Please reach out to me directly via email or through the social links above.
                     </p>
-                    <a href="mailto:${data.email}?subject=Portfolio Contact&body=Hi ${data.name},%0D%0A%0D%0AI would like to get in touch with you.%0D%0A%0D%0A" class="btn btn-primary" style="display: inline-block; text-align: center;">
-                        Email Me
-                    </a>
+                    <div style="text-align: center;">
+                        <a href="mailto:${data.email}?subject=Portfolio Contact&body=Hi ${data.name},%0D%0A%0D%0AI would like to get in touch with you.%0D%0A%0D%0A" class="btn btn-primary" style="display: inline-block;">
+                            Email Me
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
