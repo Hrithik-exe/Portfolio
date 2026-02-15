@@ -1,5 +1,7 @@
 let experiences = [];
 let projects = [];
+let achievements = [];
+let softSkills = [];
 
 function loadData() {
     const saved = localStorage.getItem('portfolioData');
@@ -25,9 +27,13 @@ function loadData() {
         
         experiences = data.experiences || [];
         projects = data.projects || [];
+        achievements = data.achievements || [];
+        softSkills = data.softSkills || [];
         
         renderExperiences();
         renderProjects();
+        renderAchievements();
+        renderSoftSkills();
         
         showSuccess();
     } else {
@@ -68,6 +74,48 @@ function loadFromHTML() {
         }
     ];
     
+    achievements = [
+        {
+            title: 'Vice President - AI/ML Society',
+            description: 'Leading the AI/ML Society at Kristu Jayanti University, conducting 5+ technical events and workshops to promote AI education and innovation among students.'
+        },
+        {
+            title: 'IT Quiz Winner 2025',
+            description: 'Won the college-level IT Quiz competition in 2025, demonstrating strong technical knowledge and problem-solving abilities.'
+        },
+        {
+            title: 'Class Representative 2025',
+            description: 'Served as Class Representative, effectively managing class affairs and bridging communication between students and faculty.'
+        }
+    ];
+    
+    softSkills = [
+        {
+            title: 'Leadership',
+            description: 'Proven track record as Vice President of AI/ML Society and Class Representative'
+        },
+        {
+            title: 'Punctuality',
+            description: 'Consistently meet deadlines and maintain high standards of time management'
+        },
+        {
+            title: 'Dedication',
+            description: 'Fully committed to every project and responsibility undertaken'
+        },
+        {
+            title: 'Team Management',
+            description: 'Skilled in coordinating teams and facilitating productive group discussions'
+        },
+        {
+            title: 'Communication',
+            description: 'Excellent verbal communication and presentation skills'
+        },
+        {
+            title: 'Ethics',
+            description: 'Strong moral principles and professional integrity in all endeavors'
+        }
+    ];
+    
     projects = [
         {
             number: '01',
@@ -94,6 +142,8 @@ function loadFromHTML() {
     
     renderExperiences();
     renderProjects();
+    renderAchievements();
+    renderSoftSkills();
 }
 
 function saveData() {
@@ -115,7 +165,9 @@ function saveData() {
         linkedin: document.getElementById('linkedin').value,
         whatsapp: document.getElementById('whatsapp').value,
         experiences: experiences,
-        projects: projects
+        projects: projects,
+        achievements: achievements,
+        softSkills: softSkills
     };
     
     localStorage.setItem('portfolioData', JSON.stringify(data));
@@ -219,6 +271,66 @@ function renderProjects() {
     `).join('');
 }
 
+function addAchievement() {
+    achievements.push({
+        title: '',
+        description: ''
+    });
+    renderAchievements();
+}
+
+function removeAchievement(index) {
+    achievements.splice(index, 1);
+    renderAchievements();
+}
+
+function renderAchievements() {
+    const container = document.getElementById('achievementsList');
+    container.innerHTML = achievements.map((ach, index) => `
+        <div class="list-item">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" value="${ach.title}" onchange="achievements[${index}].title = this.value" placeholder="Achievement Title">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea onchange="achievements[${index}].description = this.value" placeholder="Achievement description...">${ach.description}</textarea>
+            </div>
+            <button class="remove-btn" onclick="removeAchievement(${index})">Remove</button>
+        </div>
+    `).join('');
+}
+
+function addSoftSkill() {
+    softSkills.push({
+        title: '',
+        description: ''
+    });
+    renderSoftSkills();
+}
+
+function removeSoftSkill(index) {
+    softSkills.splice(index, 1);
+    renderSoftSkills();
+}
+
+function renderSoftSkills() {
+    const container = document.getElementById('softSkillsList');
+    container.innerHTML = softSkills.map((skill, index) => `
+        <div class="list-item">
+            <div class="form-group">
+                <label>Skill Name</label>
+                <input type="text" value="${skill.title}" onchange="softSkills[${index}].title = this.value" placeholder="Leadership, Communication, etc.">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea onchange="softSkills[${index}].description = this.value" placeholder="Skill description...">${skill.description}</textarea>
+            </div>
+            <button class="remove-btn" onclick="removeSoftSkill(${index})">Remove</button>
+        </div>
+    `).join('');
+}
+
 function exportHTML() {
     const data = {
         name: document.getElementById('name').value,
@@ -238,7 +350,9 @@ function exportHTML() {
         linkedin: document.getElementById('linkedin').value,
         whatsapp: document.getElementById('whatsapp').value,
         experiences: experiences,
-        projects: projects
+        projects: projects,
+        achievements: achievements,
+        softSkills: softSkills
     };
     
     const titleParts = data.title.split('&');
@@ -350,6 +464,34 @@ function exportHTML() {
                         <h4 class="timeline-company">${exp.company}</h4>
                         <p class="timeline-description">${exp.description}</p>
                     </div>
+                </div>
+                `).join('')}
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title">Major Achievements</h2>
+            <div class="achievements-grid">
+                ${data.achievements.map(ach => `
+                <div class="achievement-card">
+                    <h3 class="achievement-title">${ach.title}</h3>
+                    <p class="achievement-description">${ach.description}</p>
+                </div>
+                `).join('')}
+            </div>
+        </div>
+    </section>
+
+    <section id="soft-skills" class="soft-skills">
+        <div class="container">
+            <h2 class="section-title">Soft Skills</h2>
+            <div class="soft-skills-grid">
+                ${data.softSkills.map(skill => `
+                <div class="soft-skill-item">
+                    <h3>${skill.title}</h3>
+                    <p>${skill.description}</p>
                 </div>
                 `).join('')}
             </div>

@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        cursor.style.transform = `translate(${mouseX - 5}px, ${mouseY - 5}px)`;
+        cursor.style.transform = `translate(${mouseX - 10}px, ${mouseY - 10}px)`;
     });
 
     function animateFollower() {
         const distX = mouseX - followerX;
         const distY = mouseY - followerY;
-        followerX += distX * 0.1;
-        followerY += distY * 0.1;
-        cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+        followerX += distX * 0.15;
+        followerY += distY * 0.15;
+        cursorFollower.style.transform = `translate(${followerX - 4}px, ${followerY - 4}px)`;
         requestAnimationFrame(animateFollower);
     }
     animateFollower();
@@ -37,13 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const interactiveElements = document.querySelectorAll('a, button, .btn, .project-card');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            cursor.style.transform = `translate(${mouseX - 5}px, ${mouseY - 5}px) scale(1.5)`;
-            cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px) scale(1.5)`;
+            cursor.style.width = '40px';
+            cursor.style.height = '40px';
+            cursor.style.borderColor = 'var(--black)';
+            cursor.style.borderWidth = '2px';
+            cursor.style.transform = `translate(${mouseX - 20}px, ${mouseY - 20}px)`;
         });
         
         el.addEventListener('mouseleave', () => {
-            cursor.style.transform = `translate(${mouseX - 5}px, ${mouseY - 5}px) scale(1)`;
-            cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px) scale(1)`;
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            cursor.style.borderWidth = '2px';
+            cursor.style.transform = `translate(${mouseX - 10}px, ${mouseY - 10}px)`;
         });
     });
 
