@@ -190,28 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            const subject = `Portfolio Contact from ${name}`;
-            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-            
-            const mailtoLink = `mailto:hrithikrajesh.personal@outlook.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-            window.location.href = mailtoLink;
-            
-            setTimeout(() => {
-                contactForm.reset();
-            }, 500);
-        });
-    }
-
-
     const statNumbers = document.querySelectorAll('.stat-number');
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
