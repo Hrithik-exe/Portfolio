@@ -176,23 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
         timelineObserver.observe(item);
     });
 
-    const form = document.querySelector('.contact-form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const button = form.querySelector('.btn');
-        const originalText = button.textContent;
-        button.textContent = 'Sending...';
-        button.style.pointerEvents = 'none';
-        setTimeout(() => {
-            button.textContent = 'Message Sent!';
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.pointerEvents = 'auto';
-                form.reset();
-            }, 2000);
-        }, 1500);
-    });
-
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();

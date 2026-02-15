@@ -718,7 +718,7 @@ function exportHTML() {
                         </div>
                     </div>
                 </div>
-                <form class="contact-form">
+                <form class="contact-form" action="https://formspree.io/f/xanyqbvg" method="POST">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
                     </div>
