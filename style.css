@@ -319,14 +319,12 @@ section.visible {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%);
     border: 1px solid var(--gray-300);
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .profile-image:hover {
     transform: scale(1.02);
-    filter: grayscale(0%);
 }
 
 .scroll-indicator {
@@ -429,6 +427,7 @@ section.visible {
     max-width: 900px;
     margin: 0 auto;
     position: relative;
+    padding-bottom: 4rem;
 }
 
 .timeline::before {
@@ -436,9 +435,34 @@ section.visible {
     position: absolute;
     left: 0;
     top: 0;
-    height: 100%;
+    height: 0;
     width: 2px;
-    background-color: var(--gray-300);
+    background-color: var(--black);
+    animation: timelineGrow 2s ease-out forwards;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--black), transparent);
+    opacity: 0;
+    animation: fadeIn 1s ease-out 2.5s forwards;
+}
+
+@keyframes timelineGrow {
+    to {
+        height: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 .timeline-item {
@@ -456,6 +480,57 @@ section.visible {
     background-color: var(--black);
     border-radius: 50%;
     border: 3px solid var(--white);
+    opacity: 0;
+    transform: scale(0);
+    animation: dotAppear 0.5s ease-out forwards;
+}
+
+.timeline-item:nth-child(1) .timeline-dot {
+    animation-delay: 0.5s;
+}
+
+.timeline-item:nth-child(2) .timeline-dot {
+    animation-delay: 1.2s;
+}
+
+.timeline-item:nth-child(3) .timeline-dot {
+    animation-delay: 1.9s;
+}
+
+.timeline-future {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 2.5s forwards;
+}
+
+.timeline-dot-future {
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    background-color: transparent;
+    border: 2px solid var(--black);
+    border-radius: 50%;
+    opacity: 0;
+    animation: pulseDot 2s ease-in-out 3s infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes dotAppear {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .timeline-date {
@@ -656,15 +731,16 @@ section.visible {
     font-size: 0.95rem;
     font-weight: 500;
     text-decoration: none;
-    color: var(--black);
+    color: var(--white);
+    background-color: var(--black);
     border: 2px solid var(--black);
     transition: all 0.3s ease;
     display: inline-block;
 }
 
 .social-btn:hover {
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--white);
+    color: var(--black);
 }
 
 .contact-form {
