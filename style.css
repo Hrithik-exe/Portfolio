@@ -136,18 +136,23 @@ body {
     font-size: 0.95rem;
     font-weight: 500;
     position: relative;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
     bottom: -5px;
-    left: 0;
+    left: 50%;
     width: 0;
-    height: 1px;
+    height: 2px;
     background-color: var(--black);
-    transition: width 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%);
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
 }
 
 .nav-link:hover::after {
@@ -257,7 +262,7 @@ section.visible {
     font-weight: 500;
     text-decoration: none;
     border: 2px solid var(--black);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block;
     position: relative;
     overflow: hidden;
@@ -266,17 +271,20 @@ section.visible {
 .btn::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
     background-color: var(--black);
-    transition: left 0.3s ease;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: -1;
+    border-radius: 50%;
 }
 
 .btn:hover::before {
-    left: 0;
+    width: 300%;
+    height: 300%;
 }
 
 .btn-primary {
@@ -437,10 +445,9 @@ section.visible {
     position: absolute;
     left: 0;
     top: 0;
-    height: 0;
+    height: 100%;
     width: 2px;
     background-color: var(--black);
-    animation: timelineGrow 2s ease-out forwards;
 }
 
 .timeline::after {
@@ -451,20 +458,6 @@ section.visible {
     height: 100px;
     width: 2px;
     background: linear-gradient(to bottom, var(--black), transparent);
-    opacity: 0;
-    animation: fadeIn 1s ease-out 2.5s forwards;
-}
-
-@keyframes timelineGrow {
-    to {
-        height: 100%;
-    }
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
 }
 
 .timeline-item {
@@ -482,50 +475,6 @@ section.visible {
     background-color: var(--black);
     border-radius: 50%;
     border: 3px solid var(--white);
-    opacity: 0;
-    transform: scale(0);
-    animation: dotAppear 0.5s ease-out forwards;
-}
-
-.timeline-item:nth-child(1) .timeline-dot {
-    animation-delay: 0.5s;
-}
-
-.timeline-item:nth-child(2) .timeline-dot {
-    animation-delay: 1.2s;
-}
-
-.timeline-item:nth-child(3) .timeline-dot {
-    animation-delay: 1.9s;
-}
-
-.timeline-future {
-    opacity: 0;
-    animation: fadeIn 1s ease-out 2.5s forwards;
-}
-
-.timeline-dot-future {
-    position: absolute;
-    left: -6px;
-    top: 0;
-    width: 14px;
-    height: 14px;
-    background-color: transparent;
-    border: 2px solid var(--black);
-    border-radius: 50%;
-    opacity: 0;
-    animation: pulseDot 2s ease-in-out 3s infinite;
-}
-
-@keyframes pulseDot {
-    0%, 100% {
-        opacity: 0.3;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
 }
 
 @keyframes dotAppear {
@@ -574,12 +523,45 @@ section.visible {
     background-color: var(--white);
     padding: 2.5rem;
     border: 1px solid var(--gray-300);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.certification-card.animate-in {
+    animation: scaleIn 0.6s ease-out forwards;
+}
+
+@keyframes scaleIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.certification-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 50px 50px;
+    border-color: transparent transparent var(--black) transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
 }
 
 .certification-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) scale(1.03);
     border-color: var(--black);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.certification-card:hover::after {
+    opacity: 1;
 }
 
 .certification-title {
@@ -613,12 +595,42 @@ section.visible {
     background-color: var(--white);
     padding: 2.5rem;
     border: 1px solid var(--gray-300);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.achievement-card.animate-in {
+    animation: slideInLeft 0.6s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background-color: var(--black);
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .achievement-card:hover {
-    transform: translateY(-5px);
+    transform: translateX(10px);
     border-color: var(--black);
+    box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-card:hover::before {
+    height: 100%;
 }
 
 .achievement-title {
@@ -642,12 +654,52 @@ section.visible {
 .soft-skill-item {
     padding: 2rem;
     border: 1px solid var(--gray-300);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px) rotate(-5deg);
+}
+
+.soft-skill-item.animate-in {
+    animation: rotateIn 0.6s ease-out forwards;
+}
+
+@keyframes rotateIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.soft-skill-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: var(--black);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
 }
 
 .soft-skill-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) rotate(2deg);
     border-color: var(--black);
+    color: var(--white);
+}
+
+.soft-skill-item:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+.soft-skill-item:hover h3,
+.soft-skill-item:hover p {
+    color: var(--white);
 }
 
 .soft-skill-item h3 {
@@ -671,12 +723,49 @@ section.visible {
 .skill-category {
     border: 1px solid var(--gray-300);
     padding: 2.5rem;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.skill-category.animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.skill-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--black);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
 }
 
 .skill-category:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
     border-color: var(--black);
+    color: var(--white);
+}
+
+.skill-category:hover::before {
+    left: 0;
+}
+
+.skill-category:hover .skill-category-title,
+.skill-category:hover .skill-item {
+    color: var(--white);
 }
 
 .skill-category-title {
@@ -715,13 +804,35 @@ section.visible {
 .project-card {
     border: 1px solid var(--gray-300);
     padding: 3rem;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
+}
+
+.project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--black);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px) scale(1.02);
     border-color: var(--black);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.project-card:hover::after {
+    width: 100%;
+}
+
+.project-card:hover .project-number {
+    transform: scale(1.2);
+    color: var(--black);
 }
 
 .project-number {
@@ -729,6 +840,7 @@ section.visible {
     font-weight: 700;
     color: var(--gray-200);
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
 }
 
 .project-title {

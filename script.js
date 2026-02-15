@@ -93,6 +93,21 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
+    const scrollAnimateObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('animate-in');
+                }, index * 100);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    const animateElements = document.querySelectorAll('.skill-category, .achievement-card, .certification-card, .soft-skill-item');
+    animateElements.forEach(el => {
+        scrollAnimateObserver.observe(el);
+    });
+
     const skillItems = document.querySelectorAll('.skill-item');
     const skillObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
