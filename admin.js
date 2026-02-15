@@ -2,6 +2,8 @@ let experiences = [];
 let projects = [];
 let achievements = [];
 let softSkills = [];
+let education = [];
+let certifications = [];
 
 function loadData() {
     const saved = localStorage.getItem('portfolioData');
@@ -29,11 +31,15 @@ function loadData() {
         projects = data.projects || [];
         achievements = data.achievements || [];
         softSkills = data.softSkills || [];
+        education = data.education || [];
+        certifications = data.certifications || [];
         
         renderExperiences();
         renderProjects();
         renderAchievements();
         renderSoftSkills();
+        renderEducation();
+        renderCertifications();
         
         showSuccess();
     } else {
@@ -116,6 +122,29 @@ function loadFromHTML() {
         }
     ];
     
+    education = [
+        {
+            date: '2022 – 2025',
+            title: 'B.Sc. in Data Science',
+            institution: 'Kristu Jayanti University',
+            description: 'Focused on statistical analysis, machine learning, and data visualization techniques.'
+        },
+        {
+            date: '2025 – 2027',
+            title: 'Master of Computer Applications (MCA)',
+            institution: 'Kristu Jayanti University',
+            description: 'Specializing in advanced software development, AI/ML, and data science applications.'
+        }
+    ];
+    
+    certifications = [
+        {
+            title: 'Microsoft Certified: Azure Fundamentals',
+            issuer: 'Microsoft',
+            date: 'September 2025'
+        }
+    ];
+    
     projects = [
         {
             number: '01',
@@ -144,6 +173,8 @@ function loadFromHTML() {
     renderProjects();
     renderAchievements();
     renderSoftSkills();
+    renderEducation();
+    renderCertifications();
 }
 
 function saveData() {
@@ -167,7 +198,9 @@ function saveData() {
         experiences: experiences,
         projects: projects,
         achievements: achievements,
-        softSkills: softSkills
+        softSkills: softSkills,
+        education: education,
+        certifications: certifications
     };
     
     localStorage.setItem('portfolioData', JSON.stringify(data));
@@ -331,6 +364,81 @@ function renderSoftSkills() {
     `).join('');
 }
 
+function addEducation() {
+    education.push({
+        date: '',
+        title: '',
+        institution: '',
+        description: ''
+    });
+    renderEducation();
+}
+
+function removeEducation(index) {
+    education.splice(index, 1);
+    renderEducation();
+}
+
+function renderEducation() {
+    const container = document.getElementById('educationList');
+    container.innerHTML = education.map((edu, index) => `
+        <div class="list-item">
+            <div class="form-group">
+                <label>Date</label>
+                <input type="text" value="${edu.date}" onchange="education[${index}].date = this.value" placeholder="2020 – 2023">
+            </div>
+            <div class="form-group">
+                <label>Degree/Title</label>
+                <input type="text" value="${edu.title}" onchange="education[${index}].title = this.value" placeholder="B.Sc. in Data Science">
+            </div>
+            <div class="form-group">
+                <label>Institution</label>
+                <input type="text" value="${edu.institution}" onchange="education[${index}].institution = this.value" placeholder="University Name">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea onchange="education[${index}].description = this.value" placeholder="Education description...">${edu.description}</textarea>
+            </div>
+            <button class="remove-btn" onclick="removeEducation(${index})">Remove</button>
+        </div>
+    `).join('');
+}
+
+function addCertification() {
+    certifications.push({
+        title: '',
+        issuer: '',
+        date: ''
+    });
+    renderCertifications();
+}
+
+function removeCertification(index) {
+    certifications.splice(index, 1);
+    renderCertifications();
+}
+
+function renderCertifications() {
+    const container = document.getElementById('certificationsList');
+    container.innerHTML = certifications.map((cert, index) => `
+        <div class="list-item">
+            <div class="form-group">
+                <label>Certification Title</label>
+                <input type="text" value="${cert.title}" onchange="certifications[${index}].title = this.value" placeholder="Microsoft Certified: Azure Fundamentals">
+            </div>
+            <div class="form-group">
+                <label>Issuer</label>
+                <input type="text" value="${cert.issuer}" onchange="certifications[${index}].issuer = this.value" placeholder="Microsoft">
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="text" value="${cert.date}" onchange="certifications[${index}].date = this.value" placeholder="September 2025">
+            </div>
+            <button class="remove-btn" onclick="removeCertification(${index})">Remove</button>
+        </div>
+    `).join('');
+}
+
 function exportHTML() {
     const data = {
         name: document.getElementById('name').value,
@@ -352,7 +460,9 @@ function exportHTML() {
         experiences: experiences,
         projects: projects,
         achievements: achievements,
-        softSkills: softSkills
+        softSkills: softSkills,
+        education: education,
+        certifications: certifications
     };
     
     const titleParts = data.title.split('&');
@@ -464,6 +574,40 @@ function exportHTML() {
                         <h4 class="timeline-company">${exp.company}</h4>
                         <p class="timeline-description">${exp.description}</p>
                     </div>
+                </div>
+                `).join('')}
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                ${data.education.map(edu => `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">${edu.date}</div>
+                        <h3 class="timeline-title">${edu.title}</h3>
+                        <h4 class="timeline-company">${edu.institution}</h4>
+                        <p class="timeline-description">${edu.description}</p>
+                    </div>
+                </div>
+                `).join('')}
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certifications-grid">
+                ${data.certifications.map(cert => `
+                <div class="certification-card">
+                    <h3 class="certification-title">${cert.title}</h3>
+                    <p class="certification-issuer">${cert.issuer}</p>
+                    <p class="certification-date">${cert.date}</p>
                 </div>
                 `).join('')}
             </div>
