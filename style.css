@@ -645,6 +645,28 @@ section.visible {
     text-decoration: underline;
 }
 
+.contact-social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.social-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--black);
+    border: 2px solid var(--black);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.social-btn:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -681,33 +703,18 @@ section.visible {
     background-color: var(--gray-900);
     color: var(--white);
     padding: 3rem 0;
+    text-align: center;
 }
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
-.footer-left p {
+.footer-content p {
     font-size: 0.95rem;
     color: var(--gray-400);
-}
-
-.footer-social {
-    display: flex;
-    gap: 2rem;
-}
-
-.social-link {
-    color: var(--gray-400);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-}
-
-.social-link:hover {
-    color: var(--white);
 }
 
 @media (max-width: 1024px) {
@@ -796,6 +803,14 @@ section.visible {
     .footer-content {
         flex-direction: column;
         gap: 2rem;
+        text-align: center;
+    }
+
+    .contact-social {
+        flex-direction: column;
+    }
+
+    .social-btn {
         text-align: center;
     }
 
