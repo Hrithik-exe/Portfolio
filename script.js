@@ -194,18 +194,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            const button = contactForm.querySelector('.btn');
+            const originalText = button.textContent;
             
-            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-            
-            window.location.href = `mailto:hrithikrajesh.personal@outlook.com?subject=${subject}&body=${body}`;
+            button.textContent = 'Thank you for your message!';
+            button.style.pointerEvents = 'none';
             
             setTimeout(() => {
+                button.textContent = originalText;
+                button.style.pointerEvents = 'auto';
                 contactForm.reset();
-            }, 1000);
+            }, 3000);
         });
     }
 
