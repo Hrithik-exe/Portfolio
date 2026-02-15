@@ -52,9 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const logo = document.querySelector('.logo');
+    const heroSection = document.querySelector('.hero');
+    
     let lastScroll = 0;
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
+        const heroHeight = heroSection.offsetHeight;
+        
+        if (currentScroll > heroHeight * 0.3) {
+            logo.classList.add('expanded');
+        } else {
+            logo.classList.remove('expanded');
+        }
+        
         if (currentScroll > lastScroll && currentScroll > 100) {
             navbar.classList.add('hidden');
         } else {
